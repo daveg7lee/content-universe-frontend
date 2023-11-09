@@ -1,18 +1,20 @@
-import { Box, HStack, Text, VStack } from "@chakra-ui/react";
+import Header from "@/components/Header";
+import {
+  Box,
+  Button,
+  Center,
+  HStack,
+  Spinner,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import axios from "axios";
 import dayjs from "dayjs";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-
-const trainData = [
-  {
-    trainType: "KTX 069",
-    travelTime: "1h 49min",
-    departureTime: "9:27",
-    arrivalTime: "11:16",
-    price: "43,000",
-  },
-];
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 interface ITrainData {
   adultcharge: number;
@@ -28,14 +30,18 @@ export default function Transportation() {
   const router = useRouter();
   const { englishName, toNodeId, fromNodeId } = router.query;
   const [trainsData, setTrainsData] = useState<ITrainData[]>();
+  const [sdate, setSdate] = useState<Date | null>(new Date());
+  const [loading, setLoading] = useState(false);
+  const [checked, setChecked] = useState<number | null>(null);
 
   const fetchTrainData = async () => {
-    if (!toNodeId || !fromNodeId) return;
+    if (!toNodeId || !fromNodeId || !sdate) return;
 
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, "0");
-    const day = String(today.getDate()).padStart(2, "0");
+    setLoading(true);
+
+    const year = sdate.getFullYear();
+    const month = String(sdate.getMonth() + 1).padStart(2, "0");
+    const day = String(sdate.getDate()).padStart(2, "0");
 
     const formattedDate = `${year}${month}${day}`;
 
@@ -44,88 +50,120 @@ export default function Transportation() {
     );
 
     setTrainsData(res.data.response.body.items.item);
+    setLoading(false);
   };
 
   useEffect(() => {
     fetchTrainData();
-  }, [fromNodeId, toNodeId]);
+  }, [fromNodeId, toNodeId, sdate]);
 
   return (
     <Box py="8" px={[6, 0]}>
+      <Header />
       <Text fontSize="2xl" fontWeight="bold" mb="3">
         Here are some plans to {englishName}
       </Text>
-      {trainsData?.map((i, index) => {
-        const depplanddate = dayjs(
-          `${i.depplandtime.toString().slice(0, 4)}-${i.depplandtime
-            .toString()
-            .slice(4, 6)}-${i.depplandtime
-            .toString()
-            .slice(6, 8)}T${i.depplandtime
-            .toString()
-            .slice(8, 10)}:${i.depplandtime
-            .toString()
-            .slice(10, 12)}:${i.depplandtime.toString().slice(12, 14)}Z`
-        );
-        const arrplanddate = dayjs(
-          `${i.arrplandtime.toString().slice(0, 4)}-${i.arrplandtime
-            .toString()
-            .slice(4, 6)}-${i.arrplandtime
-            .toString()
-            .slice(6, 8)}T${i.arrplandtime
-            .toString()
-            .slice(8, 10)}:${i.arrplandtime
-            .toString()
-            .slice(10, 12)}:${i.arrplandtime.toString().slice(12, 14)}Z`
-        );
+      <DatePicker selected={sdate} onChange={(date) => setSdate(date)} />
+      {loading ? (
+        <Center h="80vh">
+          <Spinner />
+        </Center>
+      ) : !trainsData || trainsData.length === 0 ? (
+        <Center h="80vh">
+          <Text>
+            No Data Avaliable.{" "}
+            <Link href="/" style={{ color: "#3288FF" }}>
+              Back to home
+            </Link>
+          </Text>
+        </Center>
+      ) : (
+        trainsData?.map((i, index) => {
+          const depplanddate = dayjs(
+            `${i.depplandtime.toString().slice(0, 4)}-${i.depplandtime
+              .toString()
+              .slice(4, 6)}-${i.depplandtime
+              .toString()
+              .slice(6, 8)}T${i.depplandtime
+              .toString()
+              .slice(8, 10)}:${i.depplandtime
+              .toString()
+              .slice(10, 12)}:${i.depplandtime.toString().slice(12, 14)}Z`
+          );
+          const arrplanddate = dayjs(
+            `${i.arrplandtime.toString().slice(0, 4)}-${i.arrplandtime
+              .toString()
+              .slice(4, 6)}-${i.arrplandtime
+              .toString()
+              .slice(6, 8)}T${i.arrplandtime
+              .toString()
+              .slice(8, 10)}:${i.arrplandtime
+              .toString()
+              .slice(10, 12)}:${i.arrplandtime.toString().slice(12, 14)}Z`
+          );
 
-        const diff = arrplanddate.diff(depplanddate) / 1000 / 60 / 60;
-        const diffMin = arrplanddate.diff(depplanddate) / 1000 / 60;
+          const diff = arrplanddate.diff(depplanddate) / 1000 / 60 / 60;
+          const diffMin = arrplanddate.diff(depplanddate) / 1000 / 60;
 
-        return (
-          <Box
-            key={index}
-            display="flex"
-            justifyContent="space-between"
-            alignItems="flex-start"
-            borderBottom="1px solid"
-            borderColor="gray.200"
-            py="2"
-            cursor="pointer"
-            onClick={() => router.push("/guide/1")}
-          >
-            <HStack gap="10px">
-              <VStack
-                gap="0px"
-                justifyContent="flex-start"
-                alignItems="flex-start"
-              >
-                <HStack gap="2px" fontWeight="semibold">
-                  <Text>
-                    {i.depplandtime.toString().slice(8, 10) +
-                      ":" +
-                      i.depplandtime.toString().slice(10, 12)}
+          return (
+            <Box
+              key={index}
+              display="flex"
+              justifyContent="space-between"
+              alignItems="flex-start"
+              borderBottom="1px solid"
+              borderColor="gray.200"
+              bgColor={checked === index ? "gray.100" : ""}
+              py="2"
+              mt={2}
+              cursor="pointer"
+              onClick={() => setChecked(index)}
+            >
+              <HStack gap="10px">
+                <VStack
+                  gap="0px"
+                  justifyContent="flex-start"
+                  alignItems="flex-start"
+                >
+                  <HStack gap="2px" fontWeight="semibold">
+                    <Text>
+                      {i.depplandtime.toString().slice(8, 10) +
+                        ":" +
+                        i.depplandtime.toString().slice(10, 12)}
+                    </Text>
+                    <Text>-</Text>
+                    <Text>
+                      {i.arrplandtime.toString().slice(8, 10) +
+                        ":" +
+                        i.arrplandtime.toString().slice(10, 12)}
+                    </Text>
+                  </HStack>
+                  <Text fontSize="xs">{i.traingradename}</Text>
+                  <Text fontSize="xs">
+                    {`${Math.floor(diff)}h ${
+                      diffMin - 60 * Math.floor(diff)
+                    }min`}
                   </Text>
-                  <Text>-</Text>
-                  <Text>
-                    {i.arrplandtime.toString().slice(8, 10) +
-                      ":" +
-                      i.arrplandtime.toString().slice(10, 12)}
-                  </Text>
-                </HStack>
-                <Text fontSize="xs">{i.traingradename}</Text>
-                <Text fontSize="xs">
-                  {`${Math.floor(diff)}h ${diffMin - 60 * Math.floor(diff)}min`}
-                </Text>
+                </VStack>
+              </HStack>
+              <VStack gap="0" alignItems="flex-start">
+                <Text>${Math.round((i.adultcharge / 1314.6) * 100) / 100}</Text>
+                <Text fontSize="xs">₩{i.adultcharge}</Text>
               </VStack>
-            </HStack>
-            <VStack gap="0" alignItems="flex-start">
-              <Text>$32.79</Text>
-              <Text fontSize="xs">₩{i.adultcharge}</Text>
-            </VStack>
-          </Box>
-        );
-      })}
+            </Box>
+          );
+        })
+      )}
+      {checked !== null && (
+        <Button
+          position="fixed"
+          bottom="8"
+          onClick={() => router.push("/guide/1")}
+          w={typeof window !== undefined ? window.innerWidth - 48 : ""}
+        >
+          Next
+        </Button>
+      )}
     </Box>
   );
 }

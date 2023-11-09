@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import { SearchIcon } from "@chakra-ui/icons";
 import {
   Badge,
@@ -114,6 +115,7 @@ export default function From() {
 
   return (
     <Box py="8" px={[6, 0]}>
+      <Header />
       <Text fontSize="2xl" fontWeight="bold" mb="3">
         Where do you want to start?
       </Text>
