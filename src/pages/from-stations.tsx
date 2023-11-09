@@ -35,30 +35,7 @@ export default function FromStations() {
       `https://apis.data.go.kr/1613000/TrainInfoService/getCtyAcctoTrainSttnList?serviceKey=t3Soa3B8WucvsGBe%2Bx8lkY8ajIzEeBD2axF2HKIkomW3eidNhg931WZHHGIf2wrF4V%2FFCmvVZWDVlfQfbju%2BNg%3D%3D&pageNo=1&numOfRows=100&_type=json&cityCode=${citycode}`
     );
 
-    const translated = await Promise.all(
-      res?.data?.response?.body?.items?.item.map(
-        async ({ nodename, nodeid }: IStation) => {
-          const res = await axios.post(
-            "https://naveropenapi.apigw.ntruss.com/nmt/v1/translation",
-            {
-              source: "ko",
-              target: "en",
-              text: nodename + "역",
-            },
-            {
-              headers: {
-                "X-NCP-APIGW-API-KEY-ID": process.env.NEXT_PUBLIC_PAPAGO_ID,
-                "X-NCP-APIGW-API-KEY": process.env.NEXT_PUBLIC_PAPAGO_SECRET,
-                "Content-Type": "application/json",
-              },
-            }
-          );
-          return { nodeid, nodename: res.data.message.result.translatedText };
-        }
-      )
-    );
-
-    setStations(translated);
+    setStations(res?.data?.response?.body?.items?.item);
     setLoading(false);
   };
 
