@@ -6,7 +6,7 @@ export default function Header() {
   const router = useRouter();
 
   return (
-    <HStack pb={6}>
+    <HStack pb={6} w="full">
       <Box onClick={router.back} cursor="pointer">
         <ArrowBackIcon fontSize="2xl" />
       </Box>

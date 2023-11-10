@@ -8,7 +8,9 @@ export default function GuideHeader() {
   return (
     <HStack justifyContent="space-between" py={6}>
       <Box onClick={router.back}>
-        <ArrowBackIcon fontSize="3xl" />
+        <Box cursor="pointer">
+          <ArrowBackIcon fontSize="2xl" />
+        </Box>
       </Box>
       <Button
         bgColor="#3288FF"

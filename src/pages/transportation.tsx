@@ -171,7 +171,7 @@ export default function Transportation() {
         <Button
           position="fixed"
           bottom="8"
-          onClick={() => router.push("/guide/1")}
+          onClick={() => router.push("/congrat")}
           w={
             typeof window !== undefined && window.innerWidth < 380
               ? window.innerWidth - 48

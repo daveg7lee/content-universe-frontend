@@ -55,7 +55,7 @@ export default function FromStations() {
             <Spinner />
           </Center>
         ) : (
-          stations.map(({ nodename, nodeid }, index) => (
+          stations?.map(({ nodename, nodeid }, index) => (
             <Box
               key={index}
               _hover={{ bgColor: "gray.100" }}
