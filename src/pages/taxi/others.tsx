@@ -22,7 +22,7 @@ export default function Others() {
         <Text fontSize="sm" color="gray.500" mb="3" textAlign="left" w={"full"}>
           Additional Requests
         </Text>
-        <Textarea placeholder="Please enter your phone number" />
+        <Textarea placeholder="I want to..." />
       </VStack>
 
       <Button
