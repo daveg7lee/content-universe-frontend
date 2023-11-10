@@ -1,11 +1,11 @@
 import { atom } from "recoil";
 
-const nameState = atom({
+export const nameState = atom({
   key: "nameState",
   default: "",
 });
 
-const phoneState = atom({
+export const phoneState = atom({
   key: "phoneState",
   default: "",
 });

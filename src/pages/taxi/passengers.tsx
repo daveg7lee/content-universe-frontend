@@ -12,20 +12,17 @@ export default function Passengers() {
       flexDir="column"
       minH="100vh"
     >
-      <VStack w="full">
+      <VStack w="full" gap={0}>
         <Header />
-        <Text
-          fontSize="2xl"
-          fontWeight="bold"
-          mb="3"
-          textAlign="left"
-          w={"full"}
-        >
+        <Text fontSize="2xl" fontWeight="bold" textAlign="left" w={"full"}>
           For how many passengers?
         </Text>
-        <Input type="number" />
+        <Text color="gray.400" mb="3" fontSize="sm" textAlign="left" w="full">
+          (Max: 9)
+        </Text>
+        <Input type="number" max="9" />
       </VStack>
-      <Link href="/train/reserved" style={{ width: "100%", marginTop: "32px" }}>
+      <Link href="/taxi/wishlists" style={{ width: "100%", marginTop: "32px" }}>
         <Button
           bgColor="#3288FF"
           color="white"

@@ -1,13 +1,9 @@
-import { nameState } from "@/atom";
 import Header from "@/components/Header";
-import { VStack, Input, Button, Text, Box } from "@chakra-ui/react";
-import Link from "next/link";
+import { VStack, Input, Button, Box, Text, Textarea } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
 
-export default function Name() {
+export default function Others() {
   const router = useRouter();
-  const [name, setName] = useRecoilState(nameState);
 
   return (
     <Box
@@ -27,14 +23,9 @@ export default function Name() {
           textAlign="left"
           w={"full"}
         >
-          What is your name?
+          그 외?
         </Text>
-        <Input
-          type="text"
-          placeholder="Please enter your name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+        <Textarea placeholder="Please enter your phone number" />
       </VStack>
 
       <Button
@@ -44,8 +35,7 @@ export default function Name() {
         _hover={{ bgColor: "#3288FF", opacity: 0.8 }}
         mt="32px"
         onClick={() => {
-          if (!name) return;
-          router.push("/taxi/phone");
+          router.push("/taxi/reserved");
         }}
       >
         Next
