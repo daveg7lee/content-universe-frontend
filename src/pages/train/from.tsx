@@ -130,22 +130,6 @@ export default function From() {
           <SearchIcon color="grey" />
         </InputRightElement>
       </InputGroup>
-      <Text mt="2" mb="1" fontSize="md" fontWeight="semibold">
-        Recommend
-      </Text>
-      {AI_cities.map((city, index) => (
-        <Badge
-          key={index}
-          mr="1"
-          colorScheme="gray"
-          borderRadius="lg"
-          px="2"
-          py="1"
-          cursor="pointer"
-        >
-          {city}
-        </Badge>
-      ))}
       <VStack mt="6" w="full">
         {cities.map(({ englishName, citycode }, index) => (
           <Box

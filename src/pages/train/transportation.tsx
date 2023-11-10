@@ -116,9 +116,9 @@ export default function Transportation() {
         <Center h="80vh">
           <Text>
             No Data Avaliable.{" "}
-            <Link href="/" style={{ color: "#3288FF" }}>
-              Back to home
-            </Link>
+            <Text color="#3288FF" onClick={() => router.back()}>
+              Go back
+            </Text>
           </Text>
         </Center>
       ) : (

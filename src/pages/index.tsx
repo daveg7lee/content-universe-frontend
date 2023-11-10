@@ -1,10 +1,4 @@
-import {
-  Box,
-  Button,
-  Heading,
-  Text,
-  Image as ChakraImage,
-} from "@chakra-ui/react";
+import { Box, Button, Image as ChakraImage } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -37,7 +31,7 @@ export default function Welcome() {
       <Box position="absolute" bottom="-135px" right="-120px">
         <Image src="/main_blue.png" alt="red image" width={430} height={430} />
       </Box>
-      <Link href="/train/from" style={{ width: "100%", height: "fit-content" }}>
+      <Link href="/home" style={{ width: "100%", height: "fit-content" }}>
         <Button
           bgColor="black"
           color="white"
