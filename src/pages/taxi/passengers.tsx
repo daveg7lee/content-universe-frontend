@@ -22,7 +22,7 @@ export default function Passengers() {
         </Text>
         <Input type="number" max="9" />
       </VStack>
-      <Link href="/taxi/wishlists" style={{ width: "100%", marginTop: "32px" }}>
+      <Link href="/taxi/wishtime" style={{ width: "100%", marginTop: "32px" }}>
         <Button
           bgColor="#3288FF"
           color="white"
