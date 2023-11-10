@@ -21,7 +21,7 @@ export default function Passengers() {
           For how many passengers?
         </Text>
         <Text color="gray.400" mb="3" fontSize="sm" textAlign="left" w="full">
-          (Max: 9)
+          (Max: 4)
         </Text>
         <Input
           type="number"
