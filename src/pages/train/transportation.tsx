@@ -221,12 +221,12 @@ export default function Transportation() {
           bottom="8"
           onClick={() => {
             onClickNext();
-            router.push("/train/reserved");
+            router.push("/train/name");
           }}
           w={
-            typeof window !== undefined && window.innerWidth < 380
+            typeof window !== undefined && window.innerWidth < 390
               ? window.innerWidth - 48
-              : "380px"
+              : "390px"
           }
         >
           Next

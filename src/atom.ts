@@ -10,6 +10,8 @@ export const phoneState = atom({
   default: "",
 });
 
+export const passengersState = atom({ key: "passengersState", default: "" });
+
 interface ITrainReservation {
   to: string;
   from: string;

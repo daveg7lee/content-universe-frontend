@@ -1,8 +1,11 @@
+import { passengersState } from "@/atom";
 import Header from "@/components/Header";
 import { Box, Button, Center, Input, Text, VStack } from "@chakra-ui/react";
 import Link from "next/link";
+import { useRecoilState } from "recoil";
 
 export default function Passengers() {
+  const [passengers, setPassengers] = useRecoilState(passengersState);
   return (
     <Box
       py="8"
@@ -20,7 +23,12 @@ export default function Passengers() {
         <Text color="gray.400" mb="3" fontSize="sm" textAlign="left" w="full">
           (Max: 9)
         </Text>
-        <Input type="number" max="9" />
+        <Input
+          type="number"
+          max="9"
+          value={passengers}
+          onChange={(e) => setPassengers(e.target.value)}
+        />
       </VStack>
       <Link href="/taxi/wishtime" style={{ width: "100%", marginTop: "32px" }}>
         <Button

@@ -6,7 +6,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
       <RecoilRoot>
-        <Box maxW="380px" mx="auto" minH="100vh">
+        <Box maxW="390px" mx="auto" minH="100vh">
           <Component {...pageProps} />
         </Box>
       </RecoilRoot>
