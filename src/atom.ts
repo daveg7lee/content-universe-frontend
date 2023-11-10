@@ -25,4 +25,14 @@ interface ITrainReservation {
 
 export const trainReservationState = atom<ITrainReservation>({
   key: "trainReservationState",
+  default: {
+    to: "Daegu",
+    from: "Seoul",
+    departureTime: "12:00",
+    arrivalTime: "13:10",
+    trainType: "KTX",
+    timeTaken: "1:10",
+    date: "2023/10/23",
+    cost: 30,
+  },
 });

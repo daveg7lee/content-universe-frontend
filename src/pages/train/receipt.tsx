@@ -6,7 +6,7 @@ import QRCode from "qrcode.react";
 import { useCallback, useRef } from "react";
 import { useRecoilValue } from "recoil";
 
-export default function Receipt() {
+export default function TrainReceipt() {
   const trainReservation = useRecoilValue(trainReservationState);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -43,17 +43,18 @@ export default function Receipt() {
         </HStack>
         <HStack mt="15px" justifyContent="space-between" w="full">
           <Text>Date of Issue</Text>
-          <Text>{trainReservation.date}</Text>
+          <Text>{trainReservation?.date}</Text>
         </HStack>
 
         <Text textAlign="left" w="full" mt="20px">
-          {trainReservation.trainType} | Economy <br /> {trainReservation.from}{" "}
-          {trainReservation.departureTime} → {trainReservation.to}{" "}
-          {trainReservation.arrivalTime} <br /> 1 Adult, 0 Children
+          {trainReservation?.trainType} | Economy <br />{" "}
+          {trainReservation?.from} {trainReservation?.departureTime} →{" "}
+          {trainReservation?.to} {trainReservation?.arrivalTime} <br /> 1 Adult,
+          0 Children
         </Text>
         <HStack mt="10px" justifyContent="space-between" w="full">
           <Text>Total amount paid</Text>
-          <Text>${trainReservation.cost}</Text>
+          <Text>${trainReservation?.cost}</Text>
         </HStack>
         <Button
           bgColor="#3288FF"

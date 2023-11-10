@@ -1,12 +1,9 @@
-import { trainReservationState } from "@/atom";
 import { ArrowBackIcon, CheckCircleIcon } from "@chakra-ui/icons";
-import { Box, Button, HStack, Heading, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, HStack, Text, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useRecoilValue } from "recoil";
 
 export default function Reserved() {
   const router = useRouter();
-  // const trainReservation = useRecoilValue(trainReservationState);
 
   return (
     <>

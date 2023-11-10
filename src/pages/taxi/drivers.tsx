@@ -1,15 +1,6 @@
 import { trainReservationState } from "@/atom";
 import Header from "@/components/Header";
-import { SearchIcon } from "@chakra-ui/icons";
-import {
-  InputGroup,
-  Input,
-  InputRightElement,
-  VStack,
-  Text,
-  Box,
-  Button,
-} from "@chakra-ui/react";
+import { Input, VStack, Text, Box, Button } from "@chakra-ui/react";
 import router from "next/router";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
@@ -22,7 +13,7 @@ export default function Drivers() {
     <Box py="8" px={[6, 0]}>
       <Header />
       <Text fontSize="2xl" fontWeight="bold" mb="3">
-        {trainReservation.to} Taxi
+        {trainReservation?.to} Taxi
       </Text>
       <Input type="date" />
       <VStack mt="6" w="full">
@@ -38,6 +29,32 @@ export default function Drivers() {
           bgColor={checked === 1 ? "gray.100" : ""}
         >
           <Text>이기현</Text>
+        </Box>
+        <Box
+          _hover={{ bgColor: "gray.100" }}
+          p="3"
+          transition="all"
+          transitionDuration="0.5s"
+          borderRadius="md"
+          cursor="pointer"
+          w="full"
+          onClick={() => setChecked(1)}
+          bgColor={checked === 2 ? "gray.100" : ""}
+        >
+          <Text>김주영</Text>
+        </Box>
+        <Box
+          _hover={{ bgColor: "gray.100" }}
+          p="3"
+          transition="all"
+          transitionDuration="0.5s"
+          borderRadius="md"
+          cursor="pointer"
+          w="full"
+          onClick={() => setChecked(1)}
+          bgColor={checked === 3 ? "gray.100" : ""}
+        >
+          <Text>백성호</Text>
         </Box>
       </VStack>
       {checked && (

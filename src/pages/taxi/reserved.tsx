@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 
 export default function Reserved() {
   const router = useRouter();
-  // const trainReservation = useRecoilValue(trainReservationState);
 
   return (
     <>
@@ -14,18 +13,6 @@ export default function Reserved() {
             <ArrowBackIcon fontSize="2xl" />
           </Box>
         </Box>
-        <Button
-          bgColor="#3288FF"
-          color="white"
-          w="100px"
-          onClick={() => router.push("/train/receipt")}
-          _hover={{
-            bgColor: "#3288FF",
-            opacity: 0.6,
-          }}
-        >
-          Get receipt
-        </Button>
       </HStack>
       <VStack
         flexDir="column"
