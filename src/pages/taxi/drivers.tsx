@@ -38,7 +38,7 @@ export default function Drivers() {
           borderRadius="md"
           cursor="pointer"
           w="full"
-          onClick={() => setChecked(1)}
+          onClick={() => setChecked(2)}
           bgColor={checked === 2 ? "gray.100" : ""}
         >
           <Text>김주영</Text>
@@ -51,7 +51,7 @@ export default function Drivers() {
           borderRadius="md"
           cursor="pointer"
           w="full"
-          onClick={() => setChecked(1)}
+          onClick={() => setChecked(3)}
           bgColor={checked === 3 ? "gray.100" : ""}
         >
           <Text>백성호</Text>
