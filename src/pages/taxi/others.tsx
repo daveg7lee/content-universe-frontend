@@ -16,14 +16,11 @@ export default function Others() {
     >
       <VStack w="full">
         <Header />
-        <Text
-          fontSize="2xl"
-          fontWeight="bold"
-          mb="3"
-          textAlign="left"
-          w={"full"}
-        >
-          Additional Questions
+        <Text fontSize="2xl" fontWeight="bold" textAlign="left" w={"full"}>
+          Places you want to go
+        </Text>
+        <Text fontSize="sm" color="gray.500" mb="3" textAlign="left" w={"full"}>
+          Additional Requests
         </Text>
         <Textarea placeholder="Please enter your phone number" />
       </VStack>

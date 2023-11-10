@@ -181,7 +181,7 @@ export default function Home() {
           }}
           onClick={() => router.push("/train/from")}
         >
-          Find a Tour Taxi
+          Get started
         </Button>
       </Box>
     </Box>

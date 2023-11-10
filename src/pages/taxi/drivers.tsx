@@ -22,7 +22,7 @@ export default function Drivers() {
     <Box py="8" px={[6, 0]}>
       <Header />
       <Text fontSize="2xl" fontWeight="bold" mb="3">
-        ({trainReservation.to}) Taxi
+        {trainReservation.to} Taxi
       </Text>
       <Input type="date" />
       <VStack mt="6" w="full">
