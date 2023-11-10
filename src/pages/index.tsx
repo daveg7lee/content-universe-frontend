@@ -1,4 +1,10 @@
-import { Box, Button, Heading, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Heading,
+  Text,
+  Image as ChakraImage,
+} from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -6,23 +12,32 @@ export default function Welcome() {
   return (
     <Box
       h="100vh"
-      display="flex"
-      flexDir="column"
-      alignItems="center"
-      justifyContent="space-between"
       pt="24"
       pb="12"
-      px={[6, 0]}
+      px={"6"}
       position="relative"
       overflow="hidden"
+      display="flex"
+      alignItems="flex-end"
     >
       <Box position="absolute" top="-135px" left="-190px">
         <Image src="/main_red.png" alt="red image" width={430} height={430} />
       </Box>
-      <Box>
-        <Image src="/koreacompass.png" alt="logo" width={360} height={360} />
+      <Box
+        position="absolute"
+        top="45%"
+        left="50%"
+        style={{
+          transform: "translate(-50%, -50%)",
+        }}
+        w="300px"
+      >
+        <ChakraImage src="/logo.png" alt="logo" boxSize="300px" />
       </Box>
-      <Link href="/from" style={{ width: "100%" }}>
+      <Box position="absolute" bottom="-135px" right="-120px">
+        <Image src="/main_blue.png" alt="red image" width={430} height={430} />
+      </Box>
+      <Link href="/from" style={{ width: "100%", height: "fit-content" }}>
         <Button
           bgColor="black"
           color="white"
@@ -34,9 +49,6 @@ export default function Welcome() {
           Get Started
         </Button>
       </Link>
-      <Box position="absolute" bottom="-95px" right="-100px">
-        <Image src="/main_blue.png" alt="red image" width={430} height={430} />
-      </Box>
     </Box>
   );
 }
