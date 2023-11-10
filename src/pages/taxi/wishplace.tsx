@@ -23,7 +23,7 @@ export default function Wishplace() {
           textAlign="left"
           w={"full"}
         >
-          희망장소?
+          Place you'd like to meet
         </Text>
         <Input type="text" placeholder="Please enter your phone number" />
       </VStack>

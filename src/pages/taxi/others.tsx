@@ -23,7 +23,7 @@ export default function Others() {
           textAlign="left"
           w={"full"}
         >
-          그 외?
+          Additional Questions
         </Text>
         <Textarea placeholder="Please enter your phone number" />
       </VStack>

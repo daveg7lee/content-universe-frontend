@@ -20,7 +20,7 @@ export default function Reserved() {
           bgColor="#3288FF"
           color="white"
           w="100px"
-          onClick={() => router.push("/train/receipt")}
+          onClick={() => router.push("/taxi/receipt")}
           _hover={{
             bgColor: "#3288FF",
             opacity: 0.6,

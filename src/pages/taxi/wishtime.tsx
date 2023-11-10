@@ -23,9 +23,12 @@ export default function Wishtime() {
           textAlign="left"
           w={"full"}
         >
-          희망시간?
+          Time you'd like to meet(KST)
         </Text>
-        <Input type="date" placeholder="Please enter your phone number" />
+        <Input
+          type="datetime-local"
+          placeholder="Please enter your phone number"
+        />
       </VStack>
 
       <Button
