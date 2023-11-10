@@ -87,6 +87,7 @@ export default function Transportation() {
       trainType,
       timeTaken,
       cost,
+      date: sdate?.toISOString().split("T")[0].replace(/-/g, "/") ?? "",
     });
   };
 

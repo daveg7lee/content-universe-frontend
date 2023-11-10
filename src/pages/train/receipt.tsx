@@ -1,10 +1,13 @@
+import { trainReservationState } from "@/atom";
 import Header from "@/components/Header";
 import { Box, Button, HStack, Text, VStack } from "@chakra-ui/react";
 import { toPng } from "html-to-image";
 import QRCode from "qrcode.react";
 import { useCallback, useRef } from "react";
+import { useRecoilValue } from "recoil";
 
 export default function Receipt() {
+  const trainReservation = useRecoilValue(trainReservationState);
   const ref = useRef<HTMLDivElement>(null);
 
   const onButtonClick = useCallback(() => {
@@ -40,20 +43,17 @@ export default function Receipt() {
         </HStack>
         <HStack mt="15px" justifyContent="space-between" w="full">
           <Text>Date of Issue</Text>
-          <Text>2023/11/12 | 21:23:12</Text>
+          <Text>{trainReservation.date}</Text>
         </HStack>
 
-        <Text my="22px" textAlign="left" w="full">
-          2023/11/12(Sunday)
-        </Text>
-
-        <Text textAlign="left" w="full">
-          KTX 125 | Economy <br /> Seoul 11:25 → Busan 14:42 <br /> 1 Adult, 0
-          Children
+        <Text textAlign="left" w="full" mt="20px">
+          {trainReservation.trainType} | Economy <br /> {trainReservation.from}{" "}
+          {trainReservation.departureTime} → {trainReservation.to}{" "}
+          {trainReservation.arrivalTime} <br /> 1 Adult, 0 Children
         </Text>
         <HStack mt="10px" justifyContent="space-between" w="full">
           <Text>Total amount paid</Text>
-          <Text>$23</Text>
+          <Text>${trainReservation.cost}</Text>
         </HStack>
         <Button
           bgColor="#3288FF"

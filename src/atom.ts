@@ -19,6 +19,7 @@ interface ITrainReservation {
   arrivalTime: string;
   trainType: string;
   timeTaken: string;
+  date: string;
   cost: number;
 }
 
