@@ -1,5 +1,9 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 
 export default function Home() {
-  return <Box></Box>;
+  return (
+    <Box>
+      <Heading>Busan</Heading>
+    </Box>
+  );
 }

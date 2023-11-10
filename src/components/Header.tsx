@@ -7,7 +7,7 @@ export default function Header() {
 
   return (
     <HStack pb={6}>
-      <Box onClick={router.back}>
+      <Box onClick={router.back} cursor="pointer">
         <ArrowBackIcon fontSize="2xl" />
       </Box>
     </HStack>

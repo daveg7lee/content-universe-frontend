@@ -4,6 +4,7 @@ import {
   Button,
   Center,
   HStack,
+  Select,
   Spinner,
   Text,
   VStack,
@@ -33,9 +34,10 @@ export default function Transportation() {
   const [sdate, setSdate] = useState<Date | null>(new Date());
   const [loading, setLoading] = useState(false);
   const [checked, setChecked] = useState<number | null>(null);
+  const [trainCode, setTrainCode] = useState<string>("00");
 
   const fetchTrainData = async () => {
-    if (!toNodeId || !fromNodeId || !sdate) return;
+    if (!toNodeId || !fromNodeId || !sdate || !trainCode) return;
 
     setLoading(true);
 
@@ -46,16 +48,16 @@ export default function Transportation() {
     const formattedDate = `${year}${month}${day}`;
 
     const res = await axios.get(
-      `https://apis.data.go.kr/1613000/TrainInfoService/getStrtpntAlocFndTrainInfo?serviceKey=t3Soa3B8WucvsGBe%2Bx8lkY8ajIzEeBD2axF2HKIkomW3eidNhg931WZHHGIf2wrF4V%2FFCmvVZWDVlfQfbju%2BNg%3D%3D&pageNo=1&numOfRows=100&_type=json&depPlaceId=${fromNodeId}&arrPlaceId=${toNodeId}&depPlandTime=${formattedDate}&trainGradeCode=00`
+      `https://apis.data.go.kr/1613000/TrainInfoService/getStrtpntAlocFndTrainInfo?serviceKey=t3Soa3B8WucvsGBe%2Bx8lkY8ajIzEeBD2axF2HKIkomW3eidNhg931WZHHGIf2wrF4V%2FFCmvVZWDVlfQfbju%2BNg%3D%3D&pageNo=1&numOfRows=100&_type=json&depPlaceId=${fromNodeId}&arrPlaceId=${toNodeId}&depPlandTime=${formattedDate}&trainGradeCode=${trainCode}`
     );
 
-    setTrainsData(res.data.response.body.items.item);
+    setTrainsData(res?.data?.response?.body?.items?.item);
     setLoading(false);
   };
 
   useEffect(() => {
     fetchTrainData();
-  }, [fromNodeId, toNodeId, sdate]);
+  }, [fromNodeId, toNodeId, sdate, trainCode]);
 
   return (
     <Box py="8" px={[6, 0]}>
@@ -64,6 +66,17 @@ export default function Transportation() {
         Here are some plans to {englishName}
       </Text>
       <DatePicker selected={sdate} onChange={(date) => setSdate(date)} />
+      <Select
+        onChange={(e) => setTrainCode(e.target.value)}
+        value={trainCode}
+        mt={2}
+      >
+        <option value="00">KTX</option>
+        <option value="01">Saemaeul</option>
+        <option value="02">Mugunghwa</option>
+        <option value="18">ITX-MAUM</option>
+        <option value="08">ITX-Saemaul</option>
+      </Select>
       {loading ? (
         <Center h="80vh">
           <Spinner />
@@ -159,7 +172,11 @@ export default function Transportation() {
           position="fixed"
           bottom="8"
           onClick={() => router.push("/guide/1")}
-          w={typeof window !== undefined ? window.innerWidth - 48 : ""}
+          w={
+            typeof window !== undefined && window.innerWidth < 380
+              ? window.innerWidth - 48
+              : "380px"
+          }
         >
           Next
         </Button>
