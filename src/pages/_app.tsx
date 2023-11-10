@@ -1,12 +1,15 @@
 import { Box, ChakraProvider } from "@chakra-ui/react";
 import type { AppProps } from "next/app";
+import { RecoilRoot } from "recoil";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
-      <Box maxW="380px" mx="auto" minH="100vh">
-        <Component {...pageProps} />
-      </Box>
+      <RecoilRoot>
+        <Box maxW="380px" mx="auto" minH="100vh">
+          <Component {...pageProps} />
+        </Box>
+      </RecoilRoot>
     </ChakraProvider>
   );
 }

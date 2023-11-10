@@ -37,7 +37,7 @@ export default function Welcome() {
       <Box position="absolute" bottom="-135px" right="-120px">
         <Image src="/main_blue.png" alt="red image" width={430} height={430} />
       </Box>
-      <Link href="/from" style={{ width: "100%", height: "fit-content" }}>
+      <Link href="/train/from" style={{ width: "100%", height: "fit-content" }}>
         <Button
           bgColor="black"
           color="white"

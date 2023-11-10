@@ -100,6 +100,7 @@ const AI_cities = ["Yeo su"];
 
 export default function From() {
   const router = useRouter();
+  const { nodename, nodeid, fromEnglishName } = router.query;
   const [cities, setCities] =
     useState<{ citycode: number; cityname: string; englishName: string }[]>(
       citiesData
@@ -117,7 +118,7 @@ export default function From() {
     <Box py="8" px={[6, 0]}>
       <Header />
       <Text fontSize="2xl" fontWeight="bold" mb="3">
-        Where do you want to start?
+        Where do you want to go?
       </Text>
       <InputGroup>
         <Input
@@ -158,13 +159,16 @@ export default function From() {
             cursor="pointer"
             w="full"
             onClick={() =>
-              router.push(
-                {
-                  pathname: "/from-stations",
-                  query: { englishName, citycode },
+              router.push({
+                pathname: "/train/to-stations",
+                query: {
+                  toEnglishName: englishName,
+                  fromEnglishName,
+                  citycode,
+                  fromNodeName: nodename,
+                  fromNodeId: nodeid,
                 },
-                "/from-stations"
-              )
+              })
             }
           >
             <Text>{englishName}</Text>

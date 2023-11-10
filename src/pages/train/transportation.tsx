@@ -1,3 +1,4 @@
+import { trainReservationState } from "@/atom";
 import Header from "@/components/Header";
 import {
   Box,
@@ -16,6 +17,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useSetRecoilState } from "recoil";
 
 interface ITrainData {
   adultcharge: number;
@@ -29,12 +31,18 @@ interface ITrainData {
 
 export default function Transportation() {
   const router = useRouter();
-  const { englishName, toNodeId, fromNodeId } = router.query;
+  const { fromEnglishName, toEnglishName, toNodeId, fromNodeId } = router.query;
   const [trainsData, setTrainsData] = useState<ITrainData[]>();
   const [sdate, setSdate] = useState<Date | null>(new Date());
   const [loading, setLoading] = useState(false);
   const [checked, setChecked] = useState<number | null>(null);
   const [trainCode, setTrainCode] = useState<string>("00");
+  const [departureTime, setDepartureTime] = useState<string>();
+  const [arrivalTime, setArrivalTime] = useState<string>();
+  const [trainType, setTrainType] = useState<string>();
+  const [timeTaken, setTimeTaken] = useState<string>();
+  const [cost, setCost] = useState<number>();
+  const setTrainReservationState = useSetRecoilState(trainReservationState);
 
   const fetchTrainData = async () => {
     if (!toNodeId || !fromNodeId || !sdate || !trainCode) return;
@@ -59,11 +67,34 @@ export default function Transportation() {
     fetchTrainData();
   }, [fromNodeId, toNodeId, sdate, trainCode]);
 
+  const onClickNext = () => {
+    if (
+      typeof toEnglishName !== "string" ||
+      typeof fromEnglishName !== "string" ||
+      !departureTime ||
+      !arrivalTime ||
+      !trainType ||
+      !timeTaken ||
+      !cost
+    )
+      return;
+
+    setTrainReservationState({
+      to: toEnglishName,
+      from: fromEnglishName,
+      departureTime,
+      arrivalTime,
+      trainType,
+      timeTaken,
+      cost,
+    });
+  };
+
   return (
     <Box py="8" px={[6, 0]}>
       <Header />
       <Text fontSize="2xl" fontWeight="bold" mb="3">
-        Here are some plans to {englishName}
+        Here are some plans to {toEnglishName} from {fromEnglishName}
       </Text>
       <DatePicker selected={sdate} onChange={(date) => setSdate(date)} />
       <Select
@@ -130,7 +161,24 @@ export default function Transportation() {
               py="2"
               mt={2}
               cursor="pointer"
-              onClick={() => setChecked(index)}
+              onClick={() => {
+                setChecked(index);
+                setDepartureTime(
+                  i.depplandtime.toString().slice(8, 10) +
+                    ":" +
+                    i.depplandtime.toString().slice(10, 12)
+                );
+                setArrivalTime(
+                  i.arrplandtime.toString().slice(8, 10) +
+                    ":" +
+                    i.arrplandtime.toString().slice(10, 12)
+                );
+                setTrainType(i.traingradename);
+                setTimeTaken(
+                  `${Math.floor(diff)}h ${diffMin - 60 * Math.floor(diff)}min`
+                );
+                setCost(Math.round((i.adultcharge / 1314.6) * 100) / 100);
+              }}
             >
               <HStack gap="10px">
                 <VStack
@@ -171,7 +219,10 @@ export default function Transportation() {
         <Button
           position="fixed"
           bottom="8"
-          onClick={() => router.push("/congrat")}
+          onClick={() => {
+            onClickNext();
+            router.push("/train/reserved");
+          }}
           w={
             typeof window !== undefined && window.innerWidth < 380
               ? window.innerWidth - 48

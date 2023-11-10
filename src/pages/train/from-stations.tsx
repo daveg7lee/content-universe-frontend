@@ -1,5 +1,16 @@
 import Header from "@/components/Header";
-import { Box, Center, Spinner, Text, VStack } from "@chakra-ui/react";
+import { SearchIcon } from "@chakra-ui/icons";
+import {
+  Badge,
+  Box,
+  Center,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Spinner,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -11,7 +22,8 @@ interface IStation {
 
 export default function FromStations() {
   const router = useRouter();
-  const { englishName, citycode, fromNodeName, fromNodeId } = router.query;
+  const { englishName } = router.query;
+  const { citycode } = router.query;
   const [stations, setStations] = useState<IStation[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -36,7 +48,7 @@ export default function FromStations() {
     <Box py="8" px={[6, 0]}>
       <Header />
       <Text fontSize="2xl" fontWeight="bold" mb="3">
-        Which station do you want to go?
+        Which station do you want to start?
       </Text>
       <VStack mt="6" w="full">
         {loading ? (
@@ -44,7 +56,7 @@ export default function FromStations() {
             <Spinner />
           </Center>
         ) : (
-          stations.map(({ nodename, nodeid }, index) => (
+          stations?.map(({ nodename, nodeid }, index) => (
             <Box
               key={index}
               _hover={{ bgColor: "gray.100" }}
@@ -55,13 +67,10 @@ export default function FromStations() {
               cursor="pointer"
               w="full"
               onClick={() =>
-                router.push(
-                  {
-                    pathname: "/transportation",
-                    query: { englishName, toNodeId: nodeid, fromNodeId },
-                  },
-                  "/transportation"
-                )
+                router.push({
+                  pathname: "/train/to",
+                  query: { nodename, nodeid, fromEnglishName: englishName },
+                })
               }
             >
               <Text>{nodename}</Text>

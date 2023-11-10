@@ -1,6 +1,10 @@
-import { Box, Button, Center, Heading, VStack } from "@chakra-ui/react";
+import { trainReservationState } from "@/atom";
+import { Box, Button, Heading, Text, VStack } from "@chakra-ui/react";
+import { useRecoilValue } from "recoil";
 
-export default function Congrat() {
+export default function Reserved() {
+  const trainReservation = useRecoilValue(trainReservationState);
+
   return (
     <VStack
       flexDir="column"
