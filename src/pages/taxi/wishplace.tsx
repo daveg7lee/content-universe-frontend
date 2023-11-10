@@ -25,7 +25,7 @@ export default function Wishplace() {
         >
           Place you'd like to meet
         </Text>
-        <Input type="text" placeholder="Please enter your phone number" />
+        <Input type="text" placeholder="Ex) Jeonju hanok village" />
       </VStack>
 
       <Button
